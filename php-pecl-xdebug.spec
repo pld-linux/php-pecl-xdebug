@@ -33,7 +33,7 @@ pamiêci oraz profilowania.
 To rozszerzenie ma w PEAR status: %{_status}.
 
 %prep
-%setup -q -c -n %{_modname}-%{version}%{_rc}
+%setup -q -c
 
 %build
 cd %{_modname}-%{version}%{_rc}
