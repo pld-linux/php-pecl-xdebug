@@ -10,7 +10,7 @@ License:	PHP 2.02
 Group:		Development/Languages/PHP
 Source0:	http://pear.php.net/get/%{_modname}-%{version}%{_rc}.tgz
 # Source0-md5:	f4077d26281c339e1339d942f0d1788b
-URL:		http://pear.php.net/package/%{_pearname}/
+URL:		http://pear.php.net/package/xdebug/
 BuildRequires:	libtool
 BuildRequires:	php-devel
 Requires:	php-common
