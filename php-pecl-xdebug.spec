@@ -38,7 +38,7 @@ Xdebug also provides:
 - script execution analysis
 - capabilities to debug your scripts interactively with a debug client
 
-This extension has in PECL status: %{_status}.
+In PECL status of this package is: %{_status}.
 
 %description -l pl
 Rozszerzenie Xdebug pomaga przy odpluskwianiu skryptu dostarczaj±c
