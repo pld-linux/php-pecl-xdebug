@@ -4,13 +4,15 @@
 Summary:	%{_modname} - provides functions for functions traces and profiling
 Summary(pl):	%{_modname} - funkcje do ¶ledzenia i profilowania funkcji
 Name:		php-pecl-%{_modname}
-Version:	1.3.2
-Release:	1
+Version:	2.0.0
+%define	_snap	beta2
+Release:	0.%{_snap}.1
 License:	BSD style
 Group:		Development/Languages/PHP
-Source0:	http://pecl.php.net/get/%{_modname}-%{version}.tgz
-# Source0-md5:	bf76f41de570da77ab6db67d2c8cbffe
+Source0:	http://pecl.php.net/get/%{_modname}-%{version}%{_snap}.tgz
+# Source0-md5:	e2fc53f2a7ee87cee9aab200bb17ae73
 URL:		http://pecl.php.net/package/xdebug/
+BuildRequires:	libedit-devel
 BuildRequires:	libtool
 BuildRequires:	php-devel
 Requires:	php-common
@@ -66,16 +68,25 @@ To rozszerzenie ma w PECL status: %{_status}.
 %setup -q -c
 
 %build
-cd %{_modname}-%{version}
+cd %{_modname}-%{version}%{_snap}
 phpize
 %configure
+%{__make}
+cd debugclient
+install %{_datadir}/automake/config.* .
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%configure \
+	--with-libedit
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{extensionsdir}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{extensionsdir}}
 
-install %{_modname}-%{version}/modules/%{_modname}.so $RPM_BUILD_ROOT%{extensionsdir}
+install %{_modname}-*/debugclient/debugclient $RPM_BUILD_ROOT%{_bindir}/%{_modname}-debugclient
+install %{_modname}-*/modules/%{_modname}.so $RPM_BUILD_ROOT%{extensionsdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -90,5 +101,6 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc %{_modname}-%{version}/{README,NEWS,Changelog,CREDITS}
+%doc %{_modname}-*/{README,NEWS,Changelog,CREDITS}
 %attr(755,root,root) %{extensionsdir}/%{_modname}.so
+%attr(755,root,root) %{_bindir}/*
