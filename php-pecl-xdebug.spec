@@ -1,14 +1,15 @@
 %define		_modname	xdebug
-%define		_status		stable
+%define		_status		beta
+%define		_rc		rc1
 Summary:	%{_modname} - provides functions for functions traces and profiling
 Summary(pl):	%{_modname} - funkcje do ¶ledzenia i profilowania funkcji
 Name:		php-pecl-%{_modname}
-Version:	1.2.0
-Release:	1
+Version:	1.3.0
+Release:	0.%{_rc}
 License:	PHP 2.02
 Group:		Development/Languages/PHP
-Source0:	http://pear.php.net/get/%{_modname}-%{version}.tgz
-# Source0-md5:	a37cd618fa25e87e6f1aab5ff0b80742
+Source0:	http://pear.php.net/get/%{_modname}-%{version}%{_rc}.tgz
+# Source0-md5:	f4077d26281c339e1339d942f0d1788b
 URL:		http://pear.php.net/package/%{_pearname}/
 BuildRequires:	libtool
 BuildRequires:	php-devel
@@ -32,10 +33,10 @@ pamiêci oraz profilowania.
 To rozszerzenie ma w PEAR status: %{_status}.
 
 %prep
-%setup -q -c
+%setup -q -c -n %{_modname}-%{version}%{_rc}
 
 %build
-cd %{_modname}-%{version}
+cd %{_modname}-%{version}%{_rc}
 phpize
 %configure
 %{__make}
@@ -44,7 +45,7 @@ phpize
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{extensionsdir}
 
-install %{_modname}-%{version}/modules/%{_modname}.so $RPM_BUILD_ROOT%{extensionsdir}
+install %{_modname}-%{version}%{_rc}/modules/%{_modname}.so $RPM_BUILD_ROOT%{extensionsdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -59,8 +60,5 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc %{_modname}-%{version}/README
-%doc %{_modname}-%{version}/NEWS
-%doc %{_modname}-%{version}/Changelog
-%doc %{_modname}-%{version}/CREDITS
+%doc %{_modname}-%{version}%{_rc}/{README,NEWS,Changelog,CREDITS}
 %attr(755,root,root) %{extensionsdir}/%{_modname}.so
