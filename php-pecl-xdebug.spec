@@ -1,8 +1,7 @@
-# ToDo:
-# - pl summary/description
 %define		_modname	xdebug
 %define		_status		stable
 Summary:	%{_modname} - provides functions for functions traces and profiling
+Summary(pl):	%{_modname} - funkcje do ¶ledzenia i profilowania funkcji
 Name:		php-pecl-%{_modname}
 Version:	1.2.0
 Release:	1
@@ -23,7 +22,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %{_modname} provides functions for function tracing, memory usage and
 profiling.
 
-This class has in PECL status: %{_status}
+This class has in PECL status: %{_status}.
+
+%description -l pl
+%{_modname} dostarcza funkcje do ¶ledzienia funkcji i wykorzystania
+pamiêci oraz profilowania.
+
+Ta klasa ma w PECL status: %{_status}.
 
 %prep
 %setup -q -c
