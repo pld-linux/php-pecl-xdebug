@@ -22,13 +22,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %{_modname} provides functions for function tracing, memory usage and
 profiling.
 
-This class has in PECL status: %{_status}.
+This extension has in PEAR status: %{_status}
 
 %description -l pl
 %{_modname} dostarcza funkcje do ¶ledzienia funkcji i wykorzystania
 pamiêci oraz profilowania.
 
-Ta klasa ma w PECL status: %{_status}.
+To rozszerzenie ma w PEAR status: %{_status}
 
 %prep
 %setup -q -c
