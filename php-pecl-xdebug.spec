@@ -8,9 +8,9 @@ Version:	1.3.0
 Release:	0.%{_rc}
 License:	PHP 2.02
 Group:		Development/Languages/PHP
-Source0:	http://pear.php.net/get/%{_modname}-%{version}%{_rc}.tgz
+Source0:	http://pecl.php.net/get/%{_modname}-%{version}%{_rc}.tgz
 # Source0-md5:	f4077d26281c339e1339d942f0d1788b
-URL:		http://pear.php.net/package/xdebug/
+URL:		http://pecl.php.net/package/xdebug/
 BuildRequires:	libtool
 BuildRequires:	php-devel
 Requires:	php-common
