@@ -21,9 +21,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		extensionsdir	%{_libdir}/php
 
 %description
-The Xdebug extension helps you debugging your script by providing a lot of
-valuable debug information. The debug information that Xdebug can provide
-includes the following:
+The Xdebug extension helps you debugging your script by providing a
+lot of valuable debug information. The debug information that Xdebug
+can provide includes the following:
 
 - stack and function traces in error messages with:
   - full parameter display for user defined functions
@@ -40,11 +40,27 @@ Xdebug also provides:
 
 This extension has in PECL status: %{_status}.
 
-#%description -l pl
-#%{_modname} dostarcza funkcje do ¶ledzienia funkcji i wykorzystania
-#pamiêci oraz profilowania.
-#
-#To rozszerzenie ma w PECL status: %{_status}.
+%description -l pl
+Rozszerzenie Xdebug pomaga przy odpluskwianiu skryptu dostarczaj±c
+du¿o warto¶ciowych informacji. Informacje przydatne do ¶ledzenia,
+które mo¿e zapewniæ Xdebug, obejmuj±:
+
+- ¶ledzenie stosu i funkcji w komunikatach b³êdów wraz z:
+  - pe³nym wy¶wietlaniem parametrów dla funkcji zdefiniowanych przez
+    u¿ytkownika
+  - nazwami funkcji, nazwami plików i numerami linii
+  - obs³ug± metod klas
+- przydzielanie pamiêci
+- zabezpieczenie przed nieskoñczon± rekurencj±
+
+Xdebug dostarcza tak¿e:
+
+- informacje do profilowania skryptów PHP
+- analizê wywo³añ skryptu
+- mo¿liwo¶æ ¶ledzenia skryptów interaktywnie przy pomocy klienta
+  odpluskwiacza
+
+To rozszerzenie ma w PECL status: %{_status}.
 
 %prep
 %setup -q -c
