@@ -1,5 +1,7 @@
 %define		_modname	xdebug
 %define		_status		stable
+%define		_sysconfdir	/etc/php
+%define		extensionsdir	%(php-config --extension-dir 2>/dev/null)
 
 Summary:	%{_modname} - provides functions for functions traces and profiling
 Summary(pl):	%{_modname} - funkcje do ¶ledzenia i profilowania funkcji
@@ -14,13 +16,12 @@ Source0:	http://pecl.php.net/get/%{_modname}-%{version}%{_snap}.tgz
 URL:		http://pecl.php.net/package/xdebug/
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
-BuildRequires:	php-devel
-Requires:	php-common
+BuildRequires:	php-devel >= 3:5.0.0
+BuildRequires:	rpmbuild(macros) >= 1.230
+Requires:	%{_sysconfdir}/conf.d
+%requires_eq_to	php-common php-devel
 Obsoletes:	php-pear-%{_modname}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_sysconfdir	/etc/php
-%define		extensionsdir	%{_libdir}/php
 
 %description
 The Xdebug extension helps you debugging your script by providing a
@@ -83,24 +84,31 @@ install %{_datadir}/automake/config.* .
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{extensionsdir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_sysconfdir}/conf.d,%{extensionsdir}}
 
 install %{_modname}-*/debugclient/debugclient $RPM_BUILD_ROOT%{_bindir}/%{_modname}-debugclient
 install %{_modname}-*/modules/%{_modname}.so $RPM_BUILD_ROOT%{extensionsdir}
+cat <<'EOF' > $RPM_BUILD_ROOT%{_sysconfdir}/conf.d/%{_modname}.ini
+; Enable %{_modname} extension module
+extension=%{_modname}.so
+EOF
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%{_sbindir}/php-module-install install %{_modname} %{_sysconfdir}/php-cgi.ini
+[ ! -f /etc/apache/conf.d/??_mod_php.conf ] || %service -q apache restart
+[ ! -f /etc/httpd/httpd.conf/??_mod_php.conf ] || %service -q httpd restart
 
-%preun
-if [ "$1" = "0" ]; then
-	%{_sbindir}/php-module-install remove %{_modname} %{_sysconfdir}/php-cgi.ini
+%postun
+if [ "$1" = 0 ]; then
+	[ ! -f /etc/apache/conf.d/??_mod_php.conf ] || %service -q apache restart
+	[ ! -f /etc/httpd/httpd.conf/??_mod_php.conf ] || %service -q httpd restart
 fi
 
 %files
 %defattr(644,root,root,755)
 %doc %{_modname}-*/{README,NEWS,Changelog,CREDITS}
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf.d/%{_modname}.ini
 %attr(755,root,root) %{extensionsdir}/%{_modname}.so
 %attr(755,root,root) %{_bindir}/*
