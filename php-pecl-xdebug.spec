@@ -29,10 +29,9 @@ lot of valuable debug information. The debug information that Xdebug
 can provide includes the following:
 
 - stack and function traces in error messages with:
-	- full parameter display for user defined functions
-	- function name, file name and line indications
-	- support for member functions
-	  memory allocation
+ - full parameter display for user defined functions
+ - function name, file name and line indications
+ - support for member functions memory allocation
 - protection for infinite recursions
 
 Xdebug also provides:
@@ -49,10 +48,10 @@ du¿o warto¶ciowych informacji. Informacje przydatne do ¶ledzenia,
 które mo¿e zapewniæ Xdebug, obejmuj±:
 
 - ¶ledzenie stosu i funkcji w komunikatach b³êdów wraz z:
-	- pe³nym wy¶wietlaniem parametrów dla funkcji zdefiniowanych przez
-	  u¿ytkownika
-	- nazwami funkcji, nazwami plików i numerami linii
-	- obs³ug± metod klas
+ - pe³nym wy¶wietlaniem parametrów dla funkcji zdefiniowanych przez
+   u¿ytkownika
+ - nazwami funkcji, nazwami plików i numerami linii
+ - obs³ug± metod klas
 - przydzielanie pamiêci
 - zabezpieczenie przed nieskoñczon± rekurencj±
 
