@@ -8,7 +8,7 @@ Summary(pl):	%{_modname} - funkcje do ¶ledzenia i profilowania funkcji
 Name:		php-pecl-%{_modname}
 Version:	2.0.0
 %define	_snap	beta2
-Release:	0.%{_snap}.1
+Release:	0.%{_snap}.2
 License:	BSD style
 Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{_modname}-%{version}%{_snap}.tgz
