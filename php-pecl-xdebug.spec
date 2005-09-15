@@ -73,7 +73,7 @@ phpize
 %configure
 %{__make}
 cd debugclient
-install %{_datadir}/automake/config.* .
+install /usr/share/automake/config.* .
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
