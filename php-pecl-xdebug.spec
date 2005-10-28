@@ -7,7 +7,7 @@ Summary(pl):	%{_modname} - funkcje do ¶ledzenia i profilowania funkcji
 Name:		php-pecl-%{_modname}
 Version:	2.0.0
 %define	_snap	beta3
-%define	_rel	3.13
+%define	_rel	4
 Release:	0.%{_snap}.%{_rel}
 License:	BSD style
 Group:		Development/Languages/PHP
@@ -108,7 +108,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc %{_modname}-*/{README,NEWS,Changelog,CREDITS}
+%doc %{_modname}-*/{README,NEWS,Changelog,CREDITS,xt.vim}
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf.d/%{_modname}.ini
 %attr(755,root,root) %{extensionsdir}/%{_modname}.so
 %attr(755,root,root) %{_bindir}/*
