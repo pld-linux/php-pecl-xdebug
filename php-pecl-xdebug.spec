@@ -6,13 +6,13 @@ Summary:	%{_modname} - provides functions for functions traces and profiling
 Summary(pl):	%{_modname} - funkcje do ¶ledzenia i profilowania funkcji
 Name:		php-pecl-%{_modname}
 Version:	2.0.0
-%define	_snap	beta4
-%define	_rel	3
+%define	_snap	beta5
+%define	_rel	1
 Release:	0.%{_snap}.%{_rel}
 License:	BSD style
 Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{_modname}-%{version}%{_snap}.tgz
-# Source0-md5:	02655beb2fd80abd9c2246a4a9c6e30f
+# Source0-md5:	3aa38da6a75923bd9560c69b63faa37d
 URL:		http://pecl.php.net/package/xdebug/
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
