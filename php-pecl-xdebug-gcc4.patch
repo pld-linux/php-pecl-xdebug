@@ -1,0 +1,12 @@
+diff -urN xdebug-2.0.0beta5.org/debugclient/main.c xdebug-2.0.0beta5/debugclient/main.c
+--- xdebug-2.0.0beta5.org/debugclient/main.c	2005-12-31 11:54:16.000000000 +0100
++++ xdebug-2.0.0beta5/debugclient/main.c	2006-03-29 20:34:13.904406250 +0200
+@@ -256,7 +256,7 @@
+ #ifdef HAVE_LIBEDIT
+ 				/* Copy the prompt string */
+ 				sprintf(prompt, "(cmd) ");
+-				if (((const char*) cmd = el_gets(el, &num)) != NULL && num != 0) {
++				if ((cmd = el_gets(el, &num)) != NULL && num != 0) {
+ 					/* Add command to history */
+ #ifdef XDC_OLD_LIBEDIT
+ 					history(hist, H_ENTER, cmd);
