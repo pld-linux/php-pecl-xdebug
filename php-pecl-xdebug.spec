@@ -6,18 +6,18 @@ Summary:	%{_modname} - provides functions for functions traces and profiling
 Summary(pl):	%{_modname} - funkcje do ¶ledzenia i profilowania funkcji
 Name:		php-pecl-%{_modname}
 Version:	2.0.0
-%define	_snap	RC1
-%define	_rel	2
+%define	_snap	RC2
+%define	_rel	1
 Release:	0.%{_snap}.%{_rel}
 License:	BSD style
 Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{_modname}-%{version}%{_snap}.tgz
-# Source0-md5:	a048de3dbb5a16489921f2096b8003e1
+# Source0-md5:	2abef81227a5d60af45ad0792e2fd996
 URL:		http://pecl.php.net/package/xdebug/
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
 BuildRequires:	php-devel >= 3:5.0.0
-BuildRequires:	rpmbuild(macros) >= 1.254
+BuildRequires:	rpmbuild(macros) >= 1.344
 Requires:	%{_sysconfdir}/conf.d
 %{?requires_zend_extension}
 Conflicts:	ZendOptimizer
@@ -98,13 +98,11 @@ EOF
 rm -rf $RPM_BUILD_ROOT
 
 %post
-[ ! -f /etc/apache/conf.d/??_mod_php.conf ] || %service -q apache restart
-[ ! -f /etc/httpd/httpd.conf/??_mod_php.conf ] || %service -q httpd restart
+%php_webserver_restart
 
 %postun
 if [ "$1" = 0 ]; then
-	[ ! -f /etc/apache/conf.d/??_mod_php.conf ] || %service -q apache restart
-	[ ! -f /etc/httpd/httpd.conf/??_mod_php.conf ] || %service -q httpd restart
+	%php_webserver_restart
 fi
 
 %files
