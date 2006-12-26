@@ -8,7 +8,7 @@ Name:		php-pecl-%{_modname}
 Version:	2.0.0
 %define	_snap	RC2
 %define	_rel	1
-Release:	0.%{_snap}.%{_rel}
+Release:	1.%{_snap}.%{_rel}
 License:	BSD style
 Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{_modname}-%{version}%{_snap}.tgz
