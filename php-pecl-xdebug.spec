@@ -3,7 +3,7 @@
 %define		_sysconfdir	/etc/php
 %define		extensionsdir	%(php-config --extension-dir 2>/dev/null)
 Summary:	%{_modname} - provides functions for functions traces and profiling
-Summary(pl):	%{_modname} - funkcje do ¶ledzenia i profilowania funkcji
+Summary(pl.UTF-8):   %{_modname} - funkcje do Å›ledzenia i profilowania funkcji
 Name:		php-pecl-%{_modname}
 Version:	2.0.0
 %define	_snap	RC2
@@ -43,24 +43,24 @@ Xdebug also provides:
 
 In PECL status of this package is: %{_status}.
 
-%description -l pl
-Rozszerzenie Xdebug pomaga przy odpluskwianiu skryptu dostarczaj±c
-du¿o warto¶ciowych informacji. Informacje przydatne do ¶ledzenia,
-które mo¿e zapewniæ Xdebug, obejmuj±:
+%description -l pl.UTF-8
+Rozszerzenie Xdebug pomaga przy odpluskwianiu skryptu dostarczajÄ…c
+duÅ¼o wartoÅ›ciowych informacji. Informacje przydatne do Å›ledzenia,
+ktÃ³re moÅ¼e zapewniÄ‡ Xdebug, obejmujÄ…:
 
-- ¶ledzenie stosu i funkcji w komunikatach b³êdów wraz z:
- - pe³nym wy¶wietlaniem parametrów dla funkcji zdefiniowanych przez
-   u¿ytkownika
- - nazwami funkcji, nazwami plików i numerami linii
- - obs³ug± metod klas
-- przydzielanie pamiêci
-- zabezpieczenie przed nieskoñczon± rekurencj±
+- Å›ledzenie stosu i funkcji w komunikatach bÅ‚Ä™dÃ³w wraz z:
+ - peÅ‚nym wyÅ›wietlaniem parametrÃ³w dla funkcji zdefiniowanych przez
+   uÅ¼ytkownika
+ - nazwami funkcji, nazwami plikÃ³w i numerami linii
+ - obsÅ‚ugÄ… metod klas
+- przydzielanie pamiÄ™ci
+- zabezpieczenie przed nieskoÅ„czonÄ… rekurencjÄ…
 
-Xdebug dostarcza tak¿e:
+Xdebug dostarcza takÅ¼e:
 
-- informacje do profilowania skryptów PHP
-- analizê wywo³añ skryptu
-- mo¿liwo¶æ ¶ledzenia skryptów interaktywnie przy pomocy klienta
+- informacje do profilowania skryptÃ³w PHP
+- analizÄ™ wywoÅ‚aÅ„ skryptu
+- moÅ¼liwoÅ›Ä‡ Å›ledzenia skryptÃ³w interaktywnie przy pomocy klienta
   odpluskwiacza
 
 To rozszerzenie ma w PECL status: %{_status}.
