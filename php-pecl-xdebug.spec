@@ -3,7 +3,7 @@
 %define		_sysconfdir	/etc/php
 %define		extensionsdir	%(php-config --extension-dir 2>/dev/null)
 Summary:	%{_modname} - provides functions for functions traces and profiling
-Summary(pl.UTF-8):   %{_modname} - funkcje do śledzenia i profilowania funkcji
+Summary(pl.UTF-8):	%{_modname} - funkcje do śledzenia i profilowania funkcji
 Name:		php-pecl-%{_modname}
 Version:	2.0.0
 %define	_snap	RC2
