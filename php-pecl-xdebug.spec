@@ -11,6 +11,7 @@ License:	BSD style
 Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{_modname}-%{version}.tgz
 # Source0-md5:	b994465f9941db4e7ffa4f8b81fa5c3d
+Source1:	%{name}.ini
 URL:		http://pecl.php.net/package/xdebug/
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
@@ -66,6 +67,8 @@ To rozszerzenie ma w PECL status: %{_status}.
 %prep
 %setup -q -c
 chmod +x %{_modname}-%{version}/debugclient/configure
+cp %{SOURCE1} %{_modname}.ini
+sed -e 's#^;zend_extension.*#zend_extension%{?zend_zts:_ts}=%{extensionsdir}/%{_modname}.so#' -i %{_modname}.ini
 
 %build
 cd %{_modname}-%{version}
@@ -87,10 +90,7 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_sysconfdir}/conf.d,%{extensionsdir}}
 
 install %{_modname}-*/debugclient/debugclient $RPM_BUILD_ROOT%{_bindir}/%{_modname}-debugclient
 install %{_modname}-*/modules/%{_modname}.so $RPM_BUILD_ROOT%{extensionsdir}
-cat <<'EOF' > $RPM_BUILD_ROOT%{_sysconfdir}/conf.d/%{_modname}.ini
-; Enable %{_modname} extension module
-zend_extension%{?zend_zts:_ts}=%{extensionsdir}/%{_modname}.so
-EOF
+install %{_modname}.ini $RPM_BUILD_ROOT%{_sysconfdir}/conf.d
 
 %clean
 rm -rf $RPM_BUILD_ROOT
