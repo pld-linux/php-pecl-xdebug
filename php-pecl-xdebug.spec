@@ -6,7 +6,7 @@ Summary:	%{_modname} - provides functions for functions traces and profiling
 Summary(pl.UTF-8):	%{_modname} - funkcje do śledzenia i profilowania funkcji
 Name:		php-pecl-%{_modname}
 Version:	2.0.3
-Release:	1
+Release:	2
 License:	BSD style
 Group:		Development/Languages/PHP
 Source0:	http://pecl.php.net/get/%{_modname}-%{version}.tgz
@@ -77,7 +77,8 @@ phpize
 %{__make}
 cd debugclient
 install /usr/share/automake/{config.*,depcomp} .
-%{__libtoolize}
+%{__libtoolize} --install
+#cp -f /usr/share/automake/config.sub ./build/
 %{__aclocal}
 %{__autoconf}
 %configure \
