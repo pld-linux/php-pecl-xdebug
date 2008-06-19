@@ -78,7 +78,6 @@ phpize
 cd debugclient
 install /usr/share/automake/{config.*,depcomp} .
 %{__libtoolize} --install
-#cp -f /usr/share/automake/config.sub ./build/
 %{__aclocal}
 %{__autoconf}
 %configure \
