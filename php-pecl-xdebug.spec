@@ -14,7 +14,7 @@ Source0:	http://pecl.php.net/get/%{_modname}-%{version}.tgz
 Source1:	%{name}.ini
 URL:		http://pecl.php.net/package/xdebug/
 BuildRequires:	libedit-devel
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2.2
 BuildRequires:	php-devel >= 3:5.0.0
 BuildRequires:	rpmbuild(macros) >= 1.344
 Requires:	%{_sysconfdir}/conf.d
