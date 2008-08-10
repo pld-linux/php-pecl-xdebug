@@ -72,6 +72,24 @@ sed -e 's#^;zend_extension.*#zend_extension%{?zend_zts:_ts}=%{extensionsdir}/%{_
 
 %build
 cd %{_modname}-%{version}
+
+# libtool 2.2 build fix                                                                                                                                                                  
+if [ -f '/usr/share/aclocal/ltsugar.m4' ]; then                                                                                                                                          
+        cat "/usr/share/aclocal/ltsugar.m4" >>  "config.m4"                                                                                                                              
+        cat "/usr/share/aclocal/ltsugar.m4" >>  "debugclient/aclocal.m4"                                                                                                                 
+                                                                                                                                                                                         
+        cat "/usr/share/aclocal/ltversion.m4" >>  "config.m4"                                                                                                                            
+        cat "/usr/share/aclocal/ltversion.m4" >>  "debugclient/aclocal.m4"                                                                                                               
+                                                                                                                                                                                         
+        cat "/usr/share/aclocal/lt~obsolete.m4" >>  "config.m4"                                                                                                                          
+        cat "/usr/share/aclocal/lt~obsolete.m4" >>  "debugclient/aclocal.m4"                                                                                                             
+                                                                                                                                                                                         
+        cat "/usr/share/aclocal/ltoptions.m4" >>  "config.m4"                                                                                                                            
+        cat "/usr/share/aclocal/ltoptions.m4" >>  "debugclient/aclocal.m4"                                                                                                               
+                                                                                                                                                                                         
+        cat "/usr/share/aclocal/libtool.m4" >> "debugclient/aclocal.m4"                                                                                                                  
+fi         
+
 phpize
 %configure
 %{__make}
