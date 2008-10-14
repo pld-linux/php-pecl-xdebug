@@ -14,9 +14,9 @@ Source0:	http://pecl.php.net/get/%{_modname}-%{version}.tgz
 Source1:	%{name}.ini
 URL:		http://pecl.php.net/package/xdebug/
 BuildRequires:	libedit-devel
-BuildRequires:	libtool >= 2:2.2
+BuildRequires:	libtool
 BuildRequires:	php-devel >= 3:5.0.0
-BuildRequires:	rpmbuild(macros) >= 1.344
+BuildRequires:	rpmbuild(macros) >= 1.465
 Requires:	%{_sysconfdir}/conf.d
 %{?requires_zend_extension}
 Conflicts:	ZendOptimizer
@@ -66,13 +66,13 @@ To rozszerzenie ma w PECL status: %{_status}.
 
 %prep
 %setup -q -c
-chmod +x %{_modname}-%{version}/debugclient/configure
-cp %{SOURCE1} %{_modname}.ini
-sed -e 's#^;zend_extension.*#zend_extension%{?zend_zts:_ts}=%{extensionsdir}/%{_modname}.so#' -i %{_modname}.ini
+mv %{_modname}-%{version}/* .
+rmdir %{_modname}-%{version}
+chmod +x debugclient/configure
+
+sed -e 's#^;zend_extension.*#zend_extension%{?zend_zts:_ts}=%{extensionsdir}/%{_modname}.so#' %{SOURCE1} > %{_modname}.ini
 
 %build
-cd %{_modname}-%{version}
-
 # libtool 2.2 build fix
 if [ -f /usr/share/aclocal/ltsugar.m4 ]; then
 	cat /usr/share/aclocal/ltsugar.m4 >> config.m4
@@ -95,7 +95,7 @@ phpize
 %{__make}
 cd debugclient
 install /usr/share/automake/{config.*,depcomp} .
-%{__libtoolize} --install
+%{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %configure \
@@ -106,8 +106,8 @@ install /usr/share/automake/{config.*,depcomp} .
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_sysconfdir}/conf.d,%{extensionsdir}}
 
-install %{_modname}-*/debugclient/debugclient $RPM_BUILD_ROOT%{_bindir}/%{_modname}-debugclient
-install %{_modname}-*/modules/%{_modname}.so $RPM_BUILD_ROOT%{extensionsdir}
+install debugclient/debugclient $RPM_BUILD_ROOT%{_bindir}/%{_modname}-debugclient
+install modules/%{_modname}.so $RPM_BUILD_ROOT%{extensionsdir}
 install %{_modname}.ini $RPM_BUILD_ROOT%{_sysconfdir}/conf.d
 
 %clean
@@ -123,7 +123,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc %{_modname}-*/{README,NEWS,Changelog,CREDITS,xt.vim}
+%doc README NEWS Changelog CREDITS xt.vim
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf.d/%{_modname}.ini
 %attr(755,root,root) %{extensionsdir}/%{_modname}.so
 %attr(755,root,root) %{_bindir}/*
