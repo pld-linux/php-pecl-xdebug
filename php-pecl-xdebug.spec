@@ -5,14 +5,14 @@
 Summary:	%{_modname} - provides functions for functions traces and profiling
 Summary(pl.UTF-8):	%{_modname} - funkcje do śledzenia i profilowania funkcji
 Name:		php-pecl-%{_modname}
-Version:	2.0.4
-Release:	2
+Version:	2.0.5
+Release:	1
 License:	BSD style
 Group:		Development/Languages/PHP
-Source0:	http://pecl.php.net/get/%{_modname}-%{version}.tgz
-# Source0-md5:	2fd6adb30c338d7667b464506fd58eca
+Source0:	http://www.xdebug.org/files/%{_modname}-%{version}.tgz
+# Source0-md5:	2d87dab7b6c499a80f0961af602d030c
 Source1:	%{name}.ini
-URL:		http://pecl.php.net/package/xdebug/
+URL:		http://www.xdebug.org/
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
 BuildRequires:	php-devel >= 3:5.0.0
