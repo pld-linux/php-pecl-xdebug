@@ -2,15 +2,16 @@
 %define		_status		stable
 %define		_sysconfdir	/etc/php
 %define		extensionsdir	%(php-config --extension-dir 2>/dev/null)
+%define		beta		beta3
 Summary:	%{_modname} - provides functions for functions traces and profiling
 Summary(pl.UTF-8):	%{_modname} - funkcje do śledzenia i profilowania funkcji
 Name:		php-pecl-%{_modname}
-Version:	2.0.5
-Release:	2
+Version:	2.1.0
+Release:	0.%{beta}.1
 License:	BSD style
 Group:		Development/Languages/PHP
-Source0:	http://www.xdebug.org/files/%{_modname}-%{version}.tgz
-# Source0-md5:	2d87dab7b6c499a80f0961af602d030c
+Source0:	http://www.xdebug.org/files/%{_modname}-%{version}%{beta}.tgz
+# Source0-md5:	51eff76e85280ea14860bcf7dbffa899
 Source1:	%{name}.ini
 URL:		http://www.xdebug.org/
 BuildRequires:	libedit-devel
@@ -66,8 +67,8 @@ To rozszerzenie ma w PECL status: %{_status}.
 
 %prep
 %setup -q -c
-mv %{_modname}-%{version}/* .
-rmdir %{_modname}-%{version}
+mv %{_modname}-%{version}%{beta}/* .
+rmdir %{_modname}-%{version}%{beta}
 chmod +x debugclient/configure
 
 sed -e 's#^;zend_extension.*#zend_extension%{?zend_zts:_ts}=%{extensionsdir}/%{_modname}.so#' %{SOURCE1} > %{_modname}.ini
