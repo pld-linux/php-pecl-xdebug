@@ -1,27 +1,24 @@
-%define		_modname	xdebug
-%define		_status		stable
-%define		_sysconfdir	/etc/php
-%define		extensionsdir	%(php-config --extension-dir 2>/dev/null)
-%define		beta		beta3
-Summary:	%{_modname} - provides functions for functions traces and profiling
-Summary(pl.UTF-8):	%{_modname} - funkcje do śledzenia i profilowania funkcji
-Name:		php-pecl-%{_modname}
+%define		modname	xdebug
+%define		status	stable
+%define		subver	RC1
+%define		rel		1
+Summary:	%{modname} - provides functions for functions traces and profiling
+Summary(pl.UTF-8):	%{modname} - funkcje do śledzenia i profilowania funkcji
+Name:		php-pecl-%{modname}
 Version:	2.1.0
-Release:	0.%{beta}.1
+Release:	0.%{subver}.%{rel}
 License:	BSD style
 Group:		Development/Languages/PHP
-Source0:	http://www.xdebug.org/files/%{_modname}-%{version}%{beta}.tgz
-# Source0-md5:	51eff76e85280ea14860bcf7dbffa899
+Source0:	http://www.xdebug.org/files/xdebug-%{version}%{subver}.tgz
+# Source0-md5:	0fc89649daaf5d71f1cd6721268545e8
 Source1:	%{name}.ini
 URL:		http://www.xdebug.org/
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
-BuildRequires:	php-devel >= 3:5.0.0
-BuildRequires:	rpmbuild(macros) >= 1.465
-Requires:	%{_sysconfdir}/conf.d
+BuildRequires:	php-devel >= 3:5.0.4
+BuildRequires:	rpmbuild(macros) >= 1.519
 %{?requires_zend_extension}
 Conflicts:	ZendOptimizer
-Obsoletes:	php-pear-%{_modname}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -41,7 +38,7 @@ Xdebug also provides:
 - script execution analysis
 - capabilities to debug your scripts interactively with a debug client
 
-In PECL status of this package is: %{_status}.
+In PECL status of this package is: %{status}.
 
 %description -l pl.UTF-8
 Rozszerzenie Xdebug pomaga przy odpluskwianiu skryptu dostarczając
@@ -63,32 +60,31 @@ Xdebug dostarcza także:
 - możliwość śledzenia skryptów interaktywnie przy pomocy klienta
   odpluskwiacza
 
-To rozszerzenie ma w PECL status: %{_status}.
+To rozszerzenie ma w PECL status: %{status}.
 
 %prep
-%setup -q -c
-mv %{_modname}-%{version}%{beta}/* .
-rmdir %{_modname}-%{version}%{beta}
+%setup -qc
+mv %{modname}-%{version}*/* .
 chmod +x debugclient/configure
 
-sed -e 's#^;zend_extension.*#zend_extension%{?zend_zts:_ts}=%{extensionsdir}/%{_modname}.so#' %{SOURCE1} > %{_modname}.ini
+%{__sed} -e 's#^;zend_extension.*#zend_extension%{?zend_zts:_ts}=%{php_extensiondir}/%{modname}.so#' %{SOURCE1} > %{modname}.ini
 
 %build
 # libtool 2.2 build fix
-if [ -f /usr/share/aclocal/ltsugar.m4 ]; then
-	cat /usr/share/aclocal/ltsugar.m4 >> config.m4
-	cat /usr/share/aclocal/ltsugar.m4 >> debugclient/aclocal.m4
-																																													
-	cat /usr/share/aclocal/ltversion.m4 >> config.m4
-	cat /usr/share/aclocal/ltversion.m4 >> debugclient/aclocal.m4
-																																													
-	cat /usr/share/aclocal/lt~obsolete.m4 >> config.m4
-	cat /usr/share/aclocal/lt~obsolete.m4 >> debugclient/aclocal.m4
-																																													
-	cat /usr/share/aclocal/ltoptions.m4 >> config.m4
-	cat /usr/share/aclocal/ltoptions.m4 >> debugclient/aclocal.m4
-																																													
-	cat /usr/share/aclocal/libtool.m4 >> debugclient/aclocal.m4
+if [ -f %{_aclocaldir}/ltsugar.m4 ]; then
+	cat %{_aclocaldir}/ltsugar.m4 >> config.m4
+	cat %{_aclocaldir}/ltsugar.m4 >> debugclient/aclocal.m4
+
+	cat %{_aclocaldir}/ltversion.m4 >> config.m4
+	cat %{_aclocaldir}/ltversion.m4 >> debugclient/aclocal.m4
+
+	cat %{_aclocaldir}/lt~obsolete.m4 >> config.m4
+	cat %{_aclocaldir}/lt~obsolete.m4 >> debugclient/aclocal.m4
+
+	cat %{_aclocaldir}/ltoptions.m4 >> config.m4
+	cat %{_aclocaldir}/ltoptions.m4 >> debugclient/aclocal.m4
+
+	cat %{_aclocaldir}/libtool.m4 >> debugclient/aclocal.m4
 fi
 
 phpize
@@ -105,11 +101,11 @@ install /usr/share/automake/{config.*,depcomp} .
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_sysconfdir}/conf.d,%{extensionsdir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{php_sysconfdir}/conf.d,%{php_extensiondir}}
 
-install debugclient/debugclient $RPM_BUILD_ROOT%{_bindir}/%{_modname}-debugclient
-install modules/%{_modname}.so $RPM_BUILD_ROOT%{extensionsdir}
-install %{_modname}.ini $RPM_BUILD_ROOT%{_sysconfdir}/conf.d
+install -p debugclient/debugclient $RPM_BUILD_ROOT%{_bindir}/%{modname}-debugclient
+install -p modules/%{modname}.so $RPM_BUILD_ROOT%{php_extensiondir}
+cp -a %{modname}.ini $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -125,6 +121,6 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc README NEWS Changelog CREDITS xt.vim
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/conf.d/%{_modname}.ini
-%attr(755,root,root) %{extensionsdir}/%{_modname}.so
-%attr(755,root,root) %{_bindir}/*
+%config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/%{modname}.ini
+%attr(755,root,root) %{php_extensiondir}/%{modname}.so
+%attr(755,root,root) %{_bindir}/xdebug-debugclient
