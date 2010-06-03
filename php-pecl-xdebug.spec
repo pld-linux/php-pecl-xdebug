@@ -15,7 +15,7 @@ Source1:	%{name}.ini
 URL:		http://www.xdebug.org/
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
-BuildRequires:	php-devel >= 3:5.0.4
+BuildRequires:	php-devel >= 4:5.0.4
 BuildRequires:	rpmbuild(macros) >= 1.519
 %{?requires_zend_extension}
 Conflicts:	ZendOptimizer
