@@ -14,7 +14,7 @@ URL:		http://www.xdebug.org/
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
 BuildRequires:	php-devel >= 4:5.0.4
-BuildRequires:	rpmbuild(macros) >= 1.519
+BuildRequires:	rpmbuild(macros) >= 1.578
 %{?requires_zend_extension}
 Conflicts:	ZendOptimizer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -65,7 +65,7 @@ To rozszerzenie ma w PECL status: %{status}.
 mv %{modname}-%{version}*/* .
 chmod +x debugclient/configure
 
-%{__sed} -e 's#^;zend_extension.*#zend_extension%{?zend_zts:_ts}=%{php_extensiondir}/%{modname}.so#' %{SOURCE1} > %{modname}.ini
+%{__sed} -e 's#^;zend_extension.*#zend_extension%{?zend_zts}=%{php_extensiondir}/%{modname}.so#' %{SOURCE1} > %{modname}.ini
 
 %build
 # libtool 2.2 build fix
