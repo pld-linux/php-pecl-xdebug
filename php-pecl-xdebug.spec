@@ -4,7 +4,7 @@ Summary:	%{modname} - provides functions for functions traces and profiling
 Summary(pl.UTF-8):	%{modname} - funkcje do śledzenia i profilowania funkcji
 Name:		php-pecl-%{modname}
 Version:	2.1.0
-Release:	2
+Release:	3
 License:	BSD style
 Group:		Development/Languages/PHP
 Source0:	http://www.xdebug.org/files/xdebug-%{version}.tgz
@@ -13,8 +13,8 @@ Source1:	%{name}.ini
 URL:		http://www.xdebug.org/
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
-BuildRequires:	php-devel >= 4:5.0.4
-BuildRequires:	rpmbuild(macros) >= 1.578
+BuildRequires:	php-devel >= 4:5.3.0
+BuildRequires:	rpmbuild(macros) >= 1.579
 %{?requires_zend_extension}
 Conflicts:	ZendOptimizer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -65,7 +65,7 @@ To rozszerzenie ma w PECL status: %{status}.
 mv %{modname}-%{version}*/* .
 chmod +x debugclient/configure
 
-%{__sed} -e 's#^;zend_extension.*#zend_extension%{?zend_zts}=%{php_extensiondir}/%{modname}.so#' %{SOURCE1} > %{modname}.ini
+%{__sed} -e 's#^;zend_extension.*#zend_extension=%{php_extensiondir}/%{modname}.so#' %{SOURCE1} > %{modname}.ini
 
 %build
 # libtool 2.2 build fix
