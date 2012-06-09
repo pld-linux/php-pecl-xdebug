@@ -3,12 +3,12 @@
 Summary:	%{modname} - provides functions for functions traces and profiling
 Summary(pl.UTF-8):	%{modname} - funkcje do śledzenia i profilowania funkcji
 Name:		php-pecl-%{modname}
-Version:	2.1.3
+Version:	2.2.0
 Release:	1
 License:	BSD style
 Group:		Development/Languages/PHP
 Source0:	http://www.xdebug.org/files/xdebug-%{version}.tgz
-# Source0-md5:	601128a91dea4f315330ce3f7ddcc3d8
+# Source0-md5:	27d8ad8224ffab04d12eecb5997a4f5d
 Source1:	%{name}.ini
 URL:		http://www.xdebug.org/
 BuildRequires:	libedit-devel
@@ -118,7 +118,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc README NEWS Changelog CREDITS contrib/xt.vim
+%doc README NEWS CREDITS contrib/xt.vim
 %config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/%{modname}.ini
 %attr(755,root,root) %{php_extensiondir}/%{modname}.so
 %attr(755,root,root) %{_bindir}/xdebug-debugclient
