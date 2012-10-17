@@ -1,3 +1,4 @@
+%define		php_name	php%{?php_suffix}
 %define		modname	xdebug
 %define		status	stable
 Summary:	%{modname} - provides functions for functions traces and profiling
@@ -11,9 +12,9 @@ Source0:	http://www.xdebug.org/files/xdebug-%{version}.tgz
 # Source0-md5:	27d8ad8224ffab04d12eecb5997a4f5d
 Source1:	%{name}.ini
 URL:		http://www.xdebug.org/
+BuildRequires:	%{php_name}-devel >= 4:5.2.17-8
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
-BuildRequires:	php-devel >= 4:5.2.17-8
 BuildRequires:	rpmbuild(macros) >= 1.579
 %{?requires_zend_extension}
 Conflicts:	ZendOptimizer
