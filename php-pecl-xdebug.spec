@@ -102,7 +102,7 @@ install /usr/share/automake/{config.*,depcomp} .
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{php_sysconfdir}/conf.d,%{php_extensiondir}}
 
-install -p debugclient/debugclient $RPM_BUILD_ROOT%{_bindir}/%{modname}-debugclient
+install -p debugclient/debugclient $RPM_BUILD_ROOT%{_bindir}/%{modname}%{?php_suffix}-debugclient
 install -p modules/%{modname}.so $RPM_BUILD_ROOT%{php_extensiondir}
 cp -a %{modname}.ini $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d
 
@@ -122,4 +122,4 @@ fi
 %doc README NEWS CREDITS contrib/xt.vim
 %config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/%{modname}.ini
 %attr(755,root,root) %{php_extensiondir}/%{modname}.so
-%attr(755,root,root) %{_bindir}/xdebug-debugclient
+%attr(755,root,root) %{_bindir}/xdebug*-debugclient
