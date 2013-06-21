@@ -15,7 +15,7 @@ URL:		http://www.xdebug.org/
 BuildRequires:	%{php_name}-devel >= 4:5.2.17-8
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
-BuildRequires:	rpmbuild(macros) >= 1.579
+BuildRequires:	rpmbuild(macros) >= 1.650
 %{?requires_zend_extension}
 Conflicts:	ZendOptimizer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
