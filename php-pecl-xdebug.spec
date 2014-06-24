@@ -6,7 +6,9 @@ Summary(pl.UTF-8):	%{modname} - funkcje do śledzenia i profilowania funkcji
 Name:		%{php_name}-pecl-%{modname}
 Version:	2.2.5
 Release:	1
-License:	BSD style
+# The Xdebug License, version 1.01
+# (Based on "The PHP License", version 3.0)
+License:	PHP
 Group:		Development/Languages/PHP
 Source0:	http://www.xdebug.org/files/xdebug-%{version}.tgz
 # Source0-md5:	7e571ce8eb6fa969fd8263969019849d
@@ -30,13 +32,14 @@ can provide includes the following:
 - stack and function traces in error messages with:
  - full parameter display for user defined functions
  - function name, file name and line indications
- - support for member functions memory allocation
+ - support for member functions
+- memory allocation
 - protection for infinite recursions
 
 Xdebug also provides:
 
 - profiling information for PHP scripts
-- script execution analysis
+- code coverage analysis
 - capabilities to debug your scripts interactively with a debug client
 
 In PECL status of this package is: %{status}.
