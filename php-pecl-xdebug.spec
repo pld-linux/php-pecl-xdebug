@@ -1,3 +1,12 @@
+#
+# Conditional build:
+%bcond_without	vim		# make vim syntax package
+
+# don't build for php53
+%if 0%{?_pld_builder:1} && "%{?php_suffix}" != "55"
+%undefine	vim
+%endif
+
 %define		php_name	php%{?php_suffix}
 %define		modname	xdebug
 %define		status	stable
@@ -5,7 +14,7 @@ Summary:	%{modname} - provides functions for functions traces and profiling
 Summary(pl.UTF-8):	%{modname} - funkcje do śledzenia i profilowania funkcji
 Name:		%{php_name}-pecl-%{modname}
 Version:	2.2.5
-Release:	1
+Release:	2
 # The Xdebug License, version 1.01
 # (Based on "The PHP License", version 3.0)
 License:	PHP
@@ -13,6 +22,7 @@ Group:		Development/Languages/PHP
 Source0:	http://www.xdebug.org/files/xdebug-%{version}.tgz
 # Source0-md5:	7e571ce8eb6fa969fd8263969019849d
 Source1:	%{modname}.ini
+Source2:	vim-xt-filetype.vim
 URL:		http://www.xdebug.org/
 BuildRequires:	%{php_name}-devel >= 4:5.2.17-8
 BuildRequires:	libedit-devel
@@ -23,6 +33,8 @@ Provides:	php(%{modname}) = %{version}
 Obsoletes:	php-pecl-xdebug < 2.2.4-1
 Conflicts:	ZendOptimizer
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_vimdatadir		%{_datadir}/vim
 
 %description
 The Xdebug extension helps you debugging your script by providing a
@@ -66,12 +78,29 @@ Xdebug dostarcza także:
 
 To rozszerzenie ma w PECL status: %{status}.
 
+%package -n vim-syntax-xdebug
+Summary:	Vim syntax: Xdebug trace files
+Group:		Applications/Editors/Vim
+Requires:	php(%{modname}) = %{version}
+Requires:	vim-rt >= 4:7.2.170
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
+
+%description -n vim-syntax-xdebug
+This plugin provides syntax highlighting Xdebug trace files (context
+or unified).
+
 %prep
 %setup -qc
 mv %{modname}-%{version}*/* .
 chmod +x debugclient/configure
 
 %{__sed} -e 's#^;zend_extension.*#zend_extension=%{php_extensiondir}/%{modname}.so#' %{SOURCE1} > %{modname}.ini
+
+install -d vim/{syntax,ftdetect}
+mv contrib/xt.vim vim/syntax
+cp -p %{SOURCE2} vim/ftdetect/xt.vim
 
 %build
 # libtool 2.2 build fix
@@ -111,6 +140,12 @@ install -p debugclient/debugclient $RPM_BUILD_ROOT%{_bindir}/%{modname}%{?php_su
 install -p modules/%{modname}.so $RPM_BUILD_ROOT%{php_extensiondir}
 cp -a %{modname}.ini $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d
 
+%if %{with vim}
+# vim syntax
+install -d $RPM_BUILD_ROOT%{_vimdatadir}
+cp -a vim/* $RPM_BUILD_ROOT%{_vimdatadir}
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -124,7 +159,14 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc README NEWS CREDITS contrib/xt.vim
+%doc README NEWS CREDITS contrib
 %config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/%{modname}.ini
 %attr(755,root,root) %{php_extensiondir}/%{modname}.so
 %attr(755,root,root) %{_bindir}/xdebug*-debugclient
+
+%if %{with vim}
+%files -n vim-syntax-xdebug
+%defattr(644,root,root,755)
+%{_vimdatadir}/ftdetect/xt.vim
+%{_vimdatadir}/syntax/xt.vim
+%endif
