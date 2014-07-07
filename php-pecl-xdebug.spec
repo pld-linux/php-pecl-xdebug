@@ -4,7 +4,7 @@
 
 # don't build for php53
 %if 0%{?_pld_builder:1} && "%{?php_suffix}" != "55"
-%undefine	vim
+%undefine	with_vim
 %endif
 
 %define		php_name	php%{?php_suffix}
@@ -14,7 +14,7 @@ Summary:	%{modname} - provides functions for functions traces and profiling
 Summary(pl.UTF-8):	%{modname} - funkcje do śledzenia i profilowania funkcji
 Name:		%{php_name}-pecl-%{modname}
 Version:	2.2.5
-Release:	2
+Release:	3
 # The Xdebug License, version 1.01
 # (Based on "The PHP License", version 3.0)
 License:	PHP
