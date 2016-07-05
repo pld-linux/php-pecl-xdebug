@@ -2,25 +2,24 @@
 # Conditional build:
 %bcond_without	vim		# make vim syntax package
 
-# don't build for php53
+# build noarch packages only for 5.5 version
 %if 0%{?_pld_builder:1} && "%{?php_suffix}" != "55"
 %undefine	with_vim
 %endif
 
 %define		php_name	php%{?php_suffix}
 %define		modname	xdebug
-%define		status	stable
 Summary:	%{modname} - provides functions for functions traces and profiling
 Summary(pl.UTF-8):	%{modname} - funkcje do śledzenia i profilowania funkcji
 Name:		%{php_name}-pecl-%{modname}
-Version:	2.3.3
+Version:	2.4.0
 Release:	1
 # The Xdebug License, version 1.01
 # (Based on "The PHP License", version 3.0)
 License:	PHP
 Group:		Development/Languages/PHP
 Source0:	http://www.xdebug.org/files/xdebug-%{version}.tgz
-# Source0-md5:	60e6fdf41840104a23debe16db15a2af
+# Source0-md5:	f49fc01332468f8b753fb37115505fb5
 Source1:	%{modname}.ini
 Source2:	vim-xt-filetype.vim
 URL:		http://www.xdebug.org/
@@ -54,8 +53,6 @@ Xdebug also provides:
 - code coverage analysis
 - capabilities to debug your scripts interactively with a debug client
 
-In PECL status of this package is: %{status}.
-
 %description -l pl.UTF-8
 Rozszerzenie Xdebug pomaga przy odpluskwianiu skryptu dostarczając
 dużo wartościowych informacji. Informacje przydatne do śledzenia,
@@ -75,8 +72,6 @@ Xdebug dostarcza także:
 - analizę wywołań skryptu
 - możliwość śledzenia skryptów interaktywnie przy pomocy klienta
   odpluskwiacza
-
-To rozszerzenie ma w PECL status: %{status}.
 
 %package -n vim-syntax-xdebug
 Summary:	Vim syntax: Xdebug trace files
@@ -154,7 +149,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc README NEWS CREDITS contrib
+%doc README.rst CREDITS contrib
 %config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/%{modname}.ini
 %attr(755,root,root) %{php_extensiondir}/%{modname}.so
 %attr(755,root,root) %{_bindir}/xdebug*-debugclient
