@@ -2,8 +2,8 @@
 # Conditional build:
 %bcond_without	vim		# make vim syntax package
 
-# build noarch packages only for 5.5 version
-%if 0%{?_pld_builder:1} && "%{?php_suffix}" != "55"
+# build noarch packages only for 7.0 version
+%if 0%{?_pld_builder:1} && "%{?php_suffix}" != "70"
 %undefine	with_vim
 %endif
 
@@ -12,18 +12,18 @@
 Summary:	%{modname} - provides functions for functions traces and profiling
 Summary(pl.UTF-8):	%{modname} - funkcje do śledzenia i profilowania funkcji
 Name:		%{php_name}-pecl-%{modname}
-Version:	2.5.5
+Version:	2.6.0
 Release:	1
 # The Xdebug License, version 1.01
 # (Based on "The PHP License", version 3.0)
 License:	PHP
 Group:		Development/Languages/PHP
-Source0:	https://www.xdebug.org/files/xdebug-%{version}.tgz
-# Source0-md5:	81bca42ea6a1f7080f501b00d8122a01
+Source0:	https://xdebug.org/files/xdebug-%{version}alpha1.tgz
+# Source0-md5:	86e47fe0967defe58b0fcf9006e8f78d
 Source1:	%{modname}.ini
 Source2:	vim-xt-filetype.vim
 URL:		https://www.xdebug.org/
-BuildRequires:	%{php_name}-devel >= 4:5.5.0
+BuildRequires:	%{php_name}-devel >= 4:7.0
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
 BuildRequires:	rpmbuild(macros) >= 1.650
@@ -78,9 +78,7 @@ Summary:	Vim syntax: Xdebug trace files
 Group:		Applications/Editors/Vim
 Requires:	php(%{modname}) = %{version}
 Requires:	vim-rt >= 4:7.2.170
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description -n vim-syntax-xdebug
 This plugin provides syntax highlighting Xdebug trace files (context
