@@ -9,17 +9,18 @@
 
 %define		php_name	php%{?php_suffix}
 %define		modname	xdebug
+%define		subver	beta1
 Summary:	%{modname} - provides functions for functions traces and profiling
 Summary(pl.UTF-8):	%{modname} - funkcje do śledzenia i profilowania funkcji
 Name:		%{php_name}-pecl-%{modname}
-Version:	2.7.1
-Release:	1
+Version:	2.8.0
+Release:	0.%{subver}.1
 # The Xdebug License, version 1.01
 # (Based on "The PHP License", version 3.0)
 License:	PHP
 Group:		Development/Languages/PHP
-Source0:	https://xdebug.org/files/xdebug-%{version}.tgz
-# Source0-md5:	8833252b258c22f73ca5ae1d51e668b6
+Source0:	https://xdebug.org/files/xdebug-%{version}%{subver}.tgz
+# Source0-md5:	f0cc5d860ee9172b1cdacc384d8133ac
 Source1:	%{modname}.ini
 Source2:	vim-xt-filetype.vim
 URL:		https://xdebug.org/
@@ -87,7 +88,6 @@ or unified).
 %prep
 %setup -qc
 mv %{modname}-%{version}*/* .
-chmod +x debugclient/configure
 
 %{__sed} -e 's#^;zend_extension.*#zend_extension=%{php_extensiondir}/%{modname}.so#' %{SOURCE1} > %{modname}.ini
 
@@ -96,22 +96,6 @@ mv contrib/xt.vim vim/syntax
 cp -p %{SOURCE2} vim/ftdetect/xt.vim
 
 %build
-# libtool 2.2 build fix
-if [ -f %{_aclocaldir}/ltsugar.m4 ]; then
-	cat %{_aclocaldir}/ltsugar.m4 >> config.m4
-	cat %{_aclocaldir}/ltsugar.m4 >> debugclient/aclocal.m4
-
-	cat %{_aclocaldir}/ltversion.m4 >> config.m4
-	cat %{_aclocaldir}/ltversion.m4 >> debugclient/aclocal.m4
-
-	cat %{_aclocaldir}/lt~obsolete.m4 >> config.m4
-	cat %{_aclocaldir}/lt~obsolete.m4 >> debugclient/aclocal.m4
-
-	cat %{_aclocaldir}/ltoptions.m4 >> config.m4
-	cat %{_aclocaldir}/ltoptions.m4 >> debugclient/aclocal.m4
-
-	cat %{_aclocaldir}/libtool.m4 >> debugclient/aclocal.m4
-fi
 phpize
 %configure
 %{__make}
