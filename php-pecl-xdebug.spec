@@ -12,14 +12,14 @@
 Summary:	%{modname} - provides functions for functions traces and profiling
 Summary(pl.UTF-8):	%{modname} - funkcje do śledzenia i profilowania funkcji
 Name:		%{php_name}-pecl-%{modname}
-Version:	2.8.1
+Version:	2.9.0
 Release:	1
 # The Xdebug License, version 1.01
 # (Based on "The PHP License", version 3.0)
 License:	PHP
 Group:		Development/Languages/PHP
 Source0:	https://xdebug.org/files/xdebug-%{version}.tgz
-# Source0-md5:	4170605efa503e1f116db0ab7b020848
+# Source0-md5:	8b8ca211cb7053c19aec2dbde4ab5ffa
 Source1:	%{modname}.ini
 Source2:	vim-xt-filetype.vim
 URL:		https://xdebug.org/
