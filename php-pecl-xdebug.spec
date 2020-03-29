@@ -76,7 +76,6 @@ Xdebug dostarcza także:
 %package -n vim-syntax-xdebug
 Summary:	Vim syntax: Xdebug trace files
 Group:		Applications/Editors/Vim
-Requires:	php(%{modname}) = %{version}
 Requires:	vim-rt >= 4:7.2.170
 BuildArch:	noarch
 
