@@ -23,7 +23,7 @@ Source0:	https://xdebug.org/files/xdebug-%{version}.tgz
 Source1:	%{modname}.ini
 Source2:	vim-xt-filetype.vim
 URL:		https://xdebug.org/
-BuildRequires:	%{php_name}-devel >= 4:7.0
+BuildRequires:	%{php_name}-devel >= 4:7.1.0
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
 BuildRequires:	rpmbuild(macros) >= 1.650
