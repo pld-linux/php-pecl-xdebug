@@ -9,21 +9,25 @@
 
 %define		php_name	php%{?php_suffix}
 %define		modname	xdebug
+%define		subver	beta1
 Summary:	%{modname} - provides functions for functions traces and profiling
 Summary(pl.UTF-8):	%{modname} - funkcje do śledzenia i profilowania funkcji
 Name:		%{php_name}-pecl-%{modname}
-Version:	2.9.8
-Release:	1
+# https://xdebug.org/docs/compat#versions
+Version:	3.0.0
+Release:	0.%{subver}.1
 # The Xdebug License, version 1.01
 # (Based on "The PHP License", version 3.0)
 License:	PHP
 Group:		Development/Languages/PHP
-Source0:	https://xdebug.org/files/xdebug-%{version}.tgz
-# Source0-md5:	a2b5199f11457099d5c81d02ababb87e
+Source0:	https://xdebug.org/files/xdebug-%{version}%{subver}.tgz
+# Source0-md5:	5e0cee5d32113f4d86127207ef375332
 Source1:	%{modname}.ini
 Source2:	vim-xt-filetype.vim
 URL:		https://xdebug.org/
-BuildRequires:	%{php_name}-devel >= 4:7.1.0
+# Need a PHP version >= 7.2.0 and < 8.2.0
+BuildRequires:	%{php_name}-devel >= 4:7.2.0
+BuildRequires:	%{php_name}-devel < 4:8.2.0
 BuildRequires:	libedit-devel
 BuildRequires:	libtool
 BuildRequires:	rpmbuild(macros) >= 1.650
@@ -85,7 +89,7 @@ or unified).
 
 %prep
 %setup -qc
-mv %{modname}-%{version}*/* .
+mv %{modname}-*/* .
 
 %{__sed} -e 's#^;zend_extension.*#zend_extension=%{php_extensiondir}/%{modname}.so#' %{SOURCE1} > %{modname}.ini
 
@@ -97,18 +101,18 @@ cp -p %{SOURCE2} vim/ftdetect/xt.vim
 phpize
 %configure
 %{__make}
-cd debugclient
-%configure \
-	--with-libedit
-%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{php_sysconfdir}/conf.d,%{php_extensiondir}}
 
-install -p debugclient/debugclient $RPM_BUILD_ROOT%{_bindir}/%{modname}%{?php_suffix}-debugclient
 install -p modules/%{modname}.so $RPM_BUILD_ROOT%{php_extensiondir}
-cp -a %{modname}.ini $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d
+%if "%php_major_version.%php_minor_version" >= "7.4"
+# XDebug should be loaded after opcache
+cp -a %{modname}.ini $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/02_%{modname}.ini
+%else
+cp -a %{modname}.ini $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{modname}.ini
+%endif
 
 %if %{with vim}
 # vim syntax
@@ -130,9 +134,8 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc README.rst CREDITS contrib
-%config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/%{modname}.ini
+%config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/*%{modname}.ini
 %attr(755,root,root) %{php_extensiondir}/%{modname}.so
-%attr(755,root,root) %{_bindir}/xdebug*-debugclient
 
 %if %{with vim}
 %files -n vim-syntax-xdebug
