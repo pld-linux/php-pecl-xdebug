@@ -9,19 +9,18 @@
 
 %define		php_name	php%{?php_suffix}
 %define		modname	xdebug
-%define		subver	RC1
 Summary:	%{modname} - provides functions for functions traces and profiling
 Summary(pl.UTF-8):	%{modname} - funkcje do śledzenia i profilowania funkcji
 Name:		%{php_name}-pecl-%{modname}
 # https://xdebug.org/docs/compat#versions
 Version:	3.0.0
-Release:	0.%{subver}.1
+Release:	1
 # The Xdebug License, version 1.01
 # (Based on "The PHP License", version 3.0)
 License:	PHP
 Group:		Development/Languages/PHP
-Source0:	https://xdebug.org/files/xdebug-%{version}%{subver}.tgz
-# Source0-md5:	68d438769fd96e1b8444a5e80f182d95
+Source0:	https://xdebug.org/files/xdebug-%{version}.tgz
+# Source0-md5:	a23759568f7caafcc4b1a2df15b443f6
 Source1:	%{modname}.ini
 Source2:	vim-xt-filetype.vim
 URL:		https://xdebug.org/
